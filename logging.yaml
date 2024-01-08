@@ -12,12 +12,12 @@ handlers:
     stream: ext://sys.stdout
   file:
     class: logging.FileHandler
-    level: DEBUG
+    level: INFO
     formatter: simple
     filename: ./log/py.log
 loggers:
   simpleExample:
-    level: DEBUG
+    level: ERROR
     handlers: [console, file]
     propagate: no
 root:
