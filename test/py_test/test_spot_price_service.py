@@ -3,7 +3,7 @@ from bson.objectid import ObjectId
 import subprocess
 import sys
 
-import src.python.az_spotprice_service as sp
+import az_spotprice_svc as sp
 import mongo_manager as mm
 
 def test_fetch_prices():

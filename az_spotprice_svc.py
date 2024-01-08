@@ -1,7 +1,11 @@
-#!/usr/bin/env python3
+#!/bin/python3
+#!/usr/bin/python3
+#!/usr/bin/python3
+#
 #
 # Code derived from https://learn.microsoft.com/en-gb/rest/api/cost-management/retail-prices/azure-retail-prices
 #
+import argparse
 import datetime
 import json
 import logging
@@ -9,9 +13,12 @@ import logging.config
 import requests
 import settings
 import threading
+from time import sleep
 import yaml
 
 from mongo_manager import write_to_mongo
+
+
 
 with open("./logging.yaml", "r") as stream:
     config = yaml.load(stream, Loader=yaml.FullLoader)
@@ -19,11 +26,26 @@ logging.config.dictConfig(config)
 logger = logging.getLogger()
 
 def main():
-    fetch_and_store_prices()
+    parser = argparse.ArgumentParser(description = "Azure spot price capturing")
+    parser.add_argument('-i', '--interval', 
+                        type=int, default=300,
+                        help="number of seconds between fetching data")
+    parser.add_argument('-c', '--count', 
+                        type=int, default=-1,
+                        help="count of fetches (-1 for indefinitely)")
+    args = parser.parse_args()
+    
+    poll_price(args.interval, args.count)
 
-def poll_price():
-    threading.Timer(300, poll_price,[]).start()
-    result = fetch_and_store_prices()
+def poll_price(interval, count):
+
+    fetch_and_store_prices()
+    
+    sleep(interval)
+    count = count - 1
+    if (count != 0 ): 
+        poll_price(interval, count)
+
 
 def fetch_and_store_prices() :
     prices = fetch_price()
@@ -31,6 +53,7 @@ def fetch_and_store_prices() :
     prices_with_date = prices
     [p.update({"timestamp": timestamp}) for p in prices_with_date]
     result = write_to_store(prices_with_date)
+    #logger.info("Fetched only Azure spot pricing")
     logger.info("Fetched and stored Azure spot pricing")
     return result
 
