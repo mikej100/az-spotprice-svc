@@ -1,0 +1,4 @@
+az acr create \
+--resource-group $RESOURCE_GROUP \
+--name $ACR_NAME \
+--sku Basic

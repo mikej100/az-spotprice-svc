@@ -1,0 +1,13 @@
+az container create \
+--resource-group $RESOURCE_GROUP \
+--name $APP_NAME \
+--image $ACR_SERVER/$APP_NAME:v1 \
+--cpu 1 \
+--memory 1 \
+--registry-login-server $ACR_SERVER \
+--registry-username $SERVICE_PRINCIPAL_ID \
+--registry-password $SERVICE_PRINCIPAL_PASSWORD \
+--ip-address Public \
+--dns-name-label azsp20240109-dns \
+--secure-environment-variables MONGO_CONN_STRING=$MONGO_CONN_STRING \
+--ports 80

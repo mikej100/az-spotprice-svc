@@ -1,0 +1,3 @@
+#!/bin/bash
+#
+az group create --name azsp20240110-rg --location uksouth
