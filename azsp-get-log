@@ -1,0 +1,1 @@
+az container logs --resource-group $RESOURCE_GROUP --name $APP_NAME

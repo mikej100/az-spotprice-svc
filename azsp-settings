@@ -1,0 +1,9 @@
+export RESOURCE_GROUP=azsp20240110-rg
+export ACR_NAME=azsp20240110acr
+export ACR_SERVER=azsp20240110acr.azurecr.io
+export SERVICE_PRINCIPAL_ID=7c568ed0-135f-47c3-879f-dfe3eaa2b5d1
+#export SERVICE_PRINCIPAL_PASSWORD=tbf
+export DNA_NAME=azsp20240110-dns 
+export APP_NAME=azsp20240115a
+# export APP_NAME=azsp20240110-app
+az config set defaults.group=$RESOURCE_GROUP

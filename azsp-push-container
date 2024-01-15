@@ -1,1 +1,2 @@
-docker push $ACR_SERVER/
+docker tag $APP_NAME $ACR_SERVER/$APP_NAME
+docker push $ACR_SERVER/$APP_NAME

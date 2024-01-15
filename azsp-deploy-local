@@ -1,0 +1,6 @@
+#!/bin/bash
+docker run \
+--env MONGO_CONN_STRING=$MONGO_CONN_STRING \
+-d \
+$APP_NAME \
+python3 /app/az_spotprice_svc.py -i 1

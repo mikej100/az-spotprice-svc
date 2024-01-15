@@ -1,13 +1,17 @@
+export FQDN=azsp20240109-$RANDOM-dns
+echo $APP_NAME
 az container create \
 --resource-group $RESOURCE_GROUP \
 --name $APP_NAME \
---image $ACR_SERVER/$APP_NAME:v1 \
+--image $ACR_SERVER/$APP_NAME:latest \
 --cpu 1 \
 --memory 1 \
 --registry-login-server $ACR_SERVER \
 --registry-username $SERVICE_PRINCIPAL_ID \
 --registry-password $SERVICE_PRINCIPAL_PASSWORD \
 --ip-address Public \
---dns-name-label azsp20240109-dns \
+--dns-name-label $FQDN \
 --secure-environment-variables MONGO_CONN_STRING=$MONGO_CONN_STRING \
---ports 80
+--ports 80 27017 \
+--command-line "python3 /app/az_spotprice_svc.py " \
+#--command-line "tail -f /dev/null"
